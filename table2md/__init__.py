@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import sys
-from typing import TYPE_CHECKING, Any, Iterable, Iterator, Mapping, Type
+from typing import TYPE_CHECKING, Any, Iterable, Iterator, List, Mapping, Type, TypeVar
 
 if sys.version_info < (3, 8):
     from typing_extensions import Protocol
@@ -10,7 +10,7 @@ else:
     from typing import Protocol
 
 if TYPE_CHECKING:
-    from _typeshed import Self, SupportsWrite
+    from _typeshed import SupportsWrite
 
 
 __title__ = "table2md"
@@ -139,7 +139,7 @@ class MarkdownTable:
         print(str(self), end=end, file=file, flush=flush)
 
     @classmethod
-    def from_2d_iterable(cls: Type["Self"], iters: Iterable[Iterable[Any]]) -> "Self":
+    def from_2d_iterable(cls, iters: Iterable[Iterable[Any]]) -> "MarkdownTable":
         """Initializes the table from a 2D iterable.
         Every cell is saved by calling `str(cell)`.
         If provided with a 2D list, those lists are copied
@@ -148,7 +148,7 @@ class MarkdownTable:
         return cls([[str(cell) for cell in row] for row in iters])
 
     @classmethod
-    def from_dicts(cls: Type["Self"], dicts: Iterable[Mapping[str, Any]]) -> "Self":
+    def from_dicts(cls, dicts: Iterable[Mapping[str, Any]]) -> "MarkdownTable":
         """Initializes the table from an iterable of dictionaries.
         Every value is saved by calling `str(cell)`.
 
@@ -156,7 +156,7 @@ class MarkdownTable:
         in other dictionaries are ignored.
         However, if a following dict has a missing key, KeyError is thrown.
         """
-        data = []
+        data: List[List[str]] = []
 
         for d in dicts:
             # No header
@@ -167,7 +167,7 @@ class MarkdownTable:
         return cls(data)
 
     @classmethod
-    def from_namedtuples(cls: Type["Self"], named_tuples: Iterable[_NamedTupleLike]) -> "Self":
+    def from_namedtuples(cls, named_tuples: Iterable[_NamedTupleLike]) -> "MarkdownTable":
         """Initializes the table from an iterable of NamedTuples.
 
         Well, in reality those don't have to be NamedTuples per se;
@@ -179,7 +179,7 @@ class MarkdownTable:
         If objects aren't of the same type, ensure all of them have the same amount of fields;
         otherwise an invalid table is created.
         """
-        data = []
+        data: List[List[str]] = []
 
         for nt in named_tuples:
             # No header
@@ -190,7 +190,7 @@ class MarkdownTable:
         return cls(data)
 
     @classmethod
-    def from_serializable(cls: Type["Self"], named_tuples: Iterable[_Serializable]) -> "Self":
+    def from_serializable(cls, named_tuples: Iterable[_Serializable]) -> "MarkdownTable":
         """This is an extension of from_namedtuples; but instead of iterating over
         those objects directly, obj.serialize() is used to get the string representations
         of the cells.
@@ -203,7 +203,7 @@ class MarkdownTable:
         Ensure all object's serialize() method yield the same amount of cells,
         otherwise an invalid table is created.
         """
-        data = []
+        data: List[List[str]] = []
 
         for nt in named_tuples:
             # No header
