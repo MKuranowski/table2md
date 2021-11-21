@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 __title__ = "table2md"
 __description__ = "Print tabular data in markdown format"
-__version__ = "0.0.1"
+__version__ = "1.0.0"
 __url__ = "https://github.com/MKuranowski/table2md"
 __author__ = "Mikołaj Kuranowski"
 __email__ = "mkuranowski+pypackages@gmail.com"
