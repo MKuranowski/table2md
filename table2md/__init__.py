@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import sys
-from typing import TYPE_CHECKING, Any, Iterable, Iterator, List, Mapping, Type, TypeVar
+from typing import TYPE_CHECKING, Any, Iterable, Iterator, List, Mapping
 
 if sys.version_info < (3, 8):
     from typing_extensions import Protocol
@@ -72,7 +72,7 @@ class MarkdownTable:
     def __init__(self, data: List[List[str]]):
         """Initializes a table from a 2D list of strings.
         1st row is always the header row.
-        See utility MarkdownTable.froListm_* helper classmethods.
+        See utility MarkdownTable.from_* helper classmethods.
         Provided lists are not copied!
         """
         self.data: List[List[str]] = data
