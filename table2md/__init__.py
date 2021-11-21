@@ -18,8 +18,7 @@ __description__ = "Print tabular data in markdown format"
 __version__ = "0.0.1"
 __url__ = "https://github.com/MKuranowski/table2md"
 __author__ = "Mikołaj Kuranowski"
-__email__ = "".join(chr(i) for i in [109, 107, 117, 114, 97, 110, 111, 119, 115, 107, 105,
-                                     64, 103, 109, 97, 105, 108, 46, 99, 111, 109])
+__email__ = "mkuranowski+pypackages@gmail.com"
 
 __copyright__ = "© Copyright 2021 Mikołaj Kuranowski"
 __license__ = "MIT"
