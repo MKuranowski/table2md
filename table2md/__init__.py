@@ -113,7 +113,7 @@ class MarkdownTable:
         that is it has a header; and all rows with data have the same number
         of cells as the header.
 
-        Raises a sub-class of InvalidData.
+        Raises a sub-class of InvalidData in case invalid state is detected.
         """
         if not self.data:
             raise NoData("missing header row")
@@ -133,7 +133,7 @@ class MarkdownTable:
         through to the builtin print function.
 
         Pleas note that the serialized table already has a newline at the end,
-        so `end="\n"` is not neccessary.
+        so `end="\n"` is not necessary.
         """
         self.validate()
         print(str(self), end=end, file=file, flush=flush)
@@ -190,7 +190,7 @@ class MarkdownTable:
         return cls(data)
 
     @classmethod
-    def from_serializable(cls, named_tuples: Iterable[_Serializable]) -> "MarkdownTable":
+    def from_serializable(cls, objects: Iterable[_Serializable]) -> "MarkdownTable":
         """This is an extension of from_namedtuples; but instead of iterating over
         those objects directly, obj.serialize() is used to get the string representations
         of the cells.
@@ -205,10 +205,10 @@ class MarkdownTable:
         """
         data: List[List[str]] = []
 
-        for nt in named_tuples:
+        for obj in objects:
             # No header
             if not data:
-                data.append(list(nt._fields))
-            data.append(list(nt.serialize()))
+                data.append(list(obj._fields))
+            data.append(list(obj.serialize()))
 
         return cls(data)
