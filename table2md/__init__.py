@@ -69,13 +69,13 @@ class MisalignedRows(InvalidData):
 class MarkdownTable:
     """A class to represent tabular data"""
 
-    def __init__(self, data: list[list[str]]):
+    def __init__(self, data: List[List[str]]):
         """Initializes a table from a 2D list of strings.
         1st row is always the header row.
-        See utility MarkdownTable.from_* helper classmethods.
+        See utility MarkdownTable.froListm_* helper classmethods.
         Provided lists are not copied!
         """
-        self.data: list[list[str]] = data
+        self.data: List[List[str]] = data
 
     def __str__(self) -> str:
         """Serializes the contained tabular data to a markdown table.
@@ -84,7 +84,7 @@ class MarkdownTable:
         x = ""
 
         # First, pre-calculate column sizes
-        col_sizes: list[int] = [
+        col_sizes: List[int] = [
             max(len(cell) for cell in col)
             for col in zip(*self.data)
         ]
