@@ -117,6 +117,12 @@ A class to represent tabular data
     Pleas note that the serialized table already has a newline at the end,
     so `end="\n"` is not necessary.
 
+- **markdown_table.display() -> None**:  
+    Validates the table, then tries to pretty-print
+    using IPython.display.display_markdown.
+
+    If that is not available, the same as table.print()
+
 - **MarkdownTable.from_2d_iterable(iters: Iterable[Iterable[Any]]) -> MarkdownTable**:  
     Initializes the table from a 2D iterable.
     Every cell is saved by calling `str(cell)`.

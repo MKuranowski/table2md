@@ -1,4 +1,4 @@
-# © Copyright 2021 Mikołaj Kuranowski
+# © Copyright 2021, 2023 Mikołaj Kuranowski
 # SPDX-License-Identifier: MIT
 
 import sys
@@ -13,14 +13,21 @@ if TYPE_CHECKING:
     from _typeshed import SupportsWrite
 
 
+try:
+    from IPython.display import display_markdown
+    has_display_markdown = True
+except ImportError:
+    has_display_markdown = False
+
+
 __title__ = "table2md"
 __description__ = "Print tabular data in markdown format"
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 __url__ = "https://github.com/MKuranowski/table2md"
 __author__ = "Mikołaj Kuranowski"
 __email__ = "mkuranowski+pypackages@gmail.com"
 
-__copyright__ = "© Copyright 2021 Mikołaj Kuranowski"
+__copyright__ = "© Copyright 2021, 2023 Mikołaj Kuranowski"
 __license__ = "MIT"
 
 
@@ -137,6 +144,18 @@ class MarkdownTable:
         """
         self.validate()
         print(str(self), end=end, file=file, flush=flush)
+
+    def display(self) -> None:
+        """Validates the table, then tries to pretty-print
+        using IPython.display.display_markdown.
+
+        If that is not available, the same as table.print()
+        """
+        self.validate()
+        if has_display_markdown:
+            display_markdown(str(self), raw=True)
+        else:
+            print(str(self), end="")
 
     @classmethod
     def from_2d_iterable(cls, iters: Iterable[Iterable[Any]]) -> "MarkdownTable":
