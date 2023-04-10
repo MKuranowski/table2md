@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 
 try:
-    from IPython.display import display_markdown
+    from IPython.display import display_markdown  # type: ignore
     has_display_markdown = True
 except ImportError:
     has_display_markdown = False
@@ -143,7 +143,7 @@ class MarkdownTable:
         so `end="\n"` is not necessary.
         """
         self.validate()
-        print(str(self), end=end, file=file, flush=flush)
+        print(str(self), end=end, file=file, flush=flush)  # type: ignore
 
     def display(self) -> None:
         """Validates the table, then tries to pretty-print
